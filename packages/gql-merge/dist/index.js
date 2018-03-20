@@ -15,7 +15,7 @@ exports.mergeAst = mergeAst;
 
 var _language = require('graphql/language');
 
-var _gqlFormat = require('gql-format');
+var _gqlFormat = require('@coralproject/gql-format');
 
 var _package = require('../package.json');
 
