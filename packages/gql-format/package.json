@@ -1,5 +1,8 @@
 {
   "name": "@coralproject/gql-format",
+  "publishConfig": {
+    "access": "public"
+  },
   "version": "0.0.1",
   "description": "Tools for formatting GraphQL documents",
   "main": "dist/index.js",
