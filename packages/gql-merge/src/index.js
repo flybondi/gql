@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /* @flow */
 import {parse,visit,} from 'graphql/language'
-import {formatString, formatAst} from 'gql-format'
+import {formatString, formatAst} from '@coralproject/gql-format'
 import {version, description} from '../package.json'
 
 export default {
