@@ -1,8 +1,5 @@
 {
-  "name": "gql",
-  "version": "0.0.1",
-  "description": "Tools for working with GraphQL documents",
-  "main": "packages/gql-cli/index.js",
+  "private": true,
   "babel": {
     "presets": [
       "latest",
@@ -43,12 +40,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/liamcurry/gql.git"
+    "url": "git+https://github.com/coralproject/gql.git"
   },
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/liamcurry/gql/issues"
+    "url": "https://github.com/coralproject/gql/issues"
   },
-  "homepage": "https://github.com/liamcurry/gql#readme"
+  "homepage": "https://github.com/coralproject/gql#readme"
 }
