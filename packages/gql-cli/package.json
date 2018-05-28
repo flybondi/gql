@@ -12,9 +12,9 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "commander": "^2.9.0",
-    "gql-format": "^0.0.4",
+    "commander": "^2.15.1",
+    "gql-format": "0.0.4",
     "gql-lint": "0.0.2",
-    "gql-merge": "^0.0.4"
+    "gql-merge": "0.0.4"
   }
 }
