@@ -37,7 +37,7 @@
     "postinstall": "lerna bootstrap",
     "flow": "flow check",
     "lint": "lerna exec -- eslint --ignore-path ../../.gitignore --config ../../.eslint.json 'src/**/*.js' 'test/**/*.js'",
-    "test": "lerna exec -- ava",
+    "test": "lerna run test",
     "watch-build": "npm run build -- -w",
     "watch-test": "npm run test -- -w"
   },
