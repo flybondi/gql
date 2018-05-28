@@ -1,7 +1,7 @@
 /* @flow */
 import glob from 'glob'
-import {promisify} from 'bluebird'
-import {readFile, writeFile} from 'fs'
+import {promisify,} from 'bluebird'
+import {readFile, writeFile,} from 'fs'
 
 const readFileAsync = promisify(readFile)
 const writeFileAsync = promisify(writeFile)
@@ -27,7 +27,7 @@ export async function readFilePaths(filePaths: string[]): Promise<any>  {
 
 export async function readFilePath(filePath: string): Promise<any> {
   const fileContents = await readFileAsync(filePath)
-  return {filePath, fileContents: fileContents.toString()}
+  return {filePath, fileContents: fileContents.toString(),}
 }
 
 export async function writeFileObjects(fileDetails): Promise<any> {
@@ -35,6 +35,6 @@ export async function writeFileObjects(fileDetails): Promise<any> {
   return await Promise.all(fileWrites)
 }
 
-export async function writeFileObject({filePath, fileContents}): Promise<any> {
+export async function writeFileObject({filePath, fileContents,}): Promise<any> {
   return await writeFileAsync(filePath, fileContents)
 }

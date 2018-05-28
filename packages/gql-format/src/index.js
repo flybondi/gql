@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 /* @flow */
 import commander from 'commander'
-import { getDescription } from 'graphql/utilities/buildASTSchema'
-import { parse, visit } from 'graphql/language'
+import { getDescription, } from 'graphql/utilities/buildASTSchema'
+import { parse, visit, } from 'graphql/language'
 import { readFileGlob, readFilePaths, writeFileObjects, } from 'gql-utils'
 import { version, description, } from '../package.json'
 
@@ -10,7 +10,6 @@ export default {
   formatString,
   formatFileGlob,
   formatFileObjects,
-  formatString,
 }
 
 /**
@@ -40,7 +39,7 @@ export async function formatFilePaths(filePaths: string[]) {
  * @return {Promise<null>} The write files promise
  */
 export async function formatFileObjects(fileObjects : {filePath : string, fileContents : string}[]) {
-  const fileObjectsFormatted = fileObjects.map(({filePath, fileContents}) => ({
+  const fileObjectsFormatted = fileObjects.map(({filePath, fileContents,}) => ({
     filePath,
     fileContents: formatString(fileContents),
   }))
@@ -61,7 +60,7 @@ export function formatString(schemaStr: string): string {
  * formatting rules.
  */
 export function formatAst(ast) {
-  return visit(ast, { leave: printDocASTReducer });
+  return visit(ast, { leave: printDocASTReducer, })
 }
 
 const printDocASTReducer = {
@@ -73,168 +72,168 @@ const printDocASTReducer = {
   Document: node => join(node.definitions, '\n\n') + '\n',
 
   OperationDefinition(node) {
-    const op = node.operation;
-    const name = node.name;
-    const varDefs = wrap('(', join(node.variableDefinitions, ', '), ')');
-    const directives = join(node.directives, ' ');
-    const selectionSet = node.selectionSet;
+    const op = node.operation
+    const name = node.name
+    const varDefs = wrap('(', join(node.variableDefinitions, ', '), ')')
+    const directives = join(node.directives, ' ')
+    const selectionSet = node.selectionSet
     // Anonymous queries with no directives or variable definitions can use
     // the query short form.
     return !name && !directives && !varDefs && op === 'query' ?
       selectionSet :
-      join([ op, join([ name, varDefs ]), directives, selectionSet ], ' ');
+      join([ op, join([ name, varDefs, ]), directives, selectionSet, ], ' ')
   },
 
-  VariableDefinition: ({ variable, type, defaultValue }) =>
+  VariableDefinition: ({ variable, type, defaultValue, }) =>
     variable + ': ' + type + wrap(' = ', defaultValue),
 
-  SelectionSet: ({ selections }) => block(selections),
+  SelectionSet: ({ selections, }) => block(selections),
 
-  Field: ({ alias, name, arguments: args, directives, selectionSet }) =>
+  Field: ({ alias, name, arguments: args, directives, selectionSet, }) =>
     join([
       wrap('', alias, ': ') + name + wrap('(', join(args, ', '), ')'),
       join(directives, ' '),
-      selectionSet
+      selectionSet,
     ], ' '),
 
-  Argument: ({ name, value }) => name + ': ' + value,
+  Argument: ({ name, value, }) => name + ': ' + value,
 
   // Fragments
 
-  FragmentSpread: ({ name, directives }) =>
+  FragmentSpread: ({ name, directives, }) =>
     '...' + name + wrap(' ', join(directives, ' ')),
 
-  InlineFragment: ({ typeCondition, directives, selectionSet }) =>
+  InlineFragment: ({ typeCondition, directives, selectionSet, }) =>
     join([
       '...',
       wrap('on ', typeCondition),
       join(directives, ' '),
-      selectionSet
+      selectionSet,
     ], ' '),
 
-  FragmentDefinition: ({ name, typeCondition, directives, selectionSet }) =>
+  FragmentDefinition: ({ name, typeCondition, directives, selectionSet, }) =>
     `fragment ${name} on ${typeCondition} ` +
     wrap('', join(directives, ' '), ' ') +
     selectionSet,
 
   // Value
 
-  IntValue: ({ value }) => value,
-  FloatValue: ({ value }) => value,
-  StringValue: ({ value }) => JSON.stringify(value),
-  BooleanValue: ({ value }) => JSON.stringify(value),
+  IntValue: ({ value, }) => value,
+  FloatValue: ({ value, }) => value,
+  StringValue: ({ value, }) => JSON.stringify(value),
+  BooleanValue: ({ value, }) => JSON.stringify(value),
   NullValue: () => 'null',
-  EnumValue: ({ value }) => value,
-  ListValue: ({ values }) => '[' + join(values, ', ') + ']',
-  ObjectValue: ({ fields }) => '{' + join(fields, ', ') + '}',
-  ObjectField: ({ name, value }) => name + ': ' + value,
+  EnumValue: ({ value, }) => value,
+  ListValue: ({ values, }) => '[' + join(values, ', ') + ']',
+  ObjectValue: ({ fields, }) => '{' + join(fields, ', ') + '}',
+  ObjectField: ({ name, value, }) => name + ': ' + value,
 
   // Directive
 
-  Directive: ({ name, arguments: args }) =>
+  Directive: ({ name, arguments: args, }) =>
     '@' + name + wrap('(', join(args, ', '), ')'),
 
   // Type
 
-  NamedType: ({ name }) => name,
-  ListType: ({ type }) => '[' + type + ']',
-  NonNullType: ({ type }) => type + '!',
+  NamedType: ({ name, }) => name,
+  ListType: ({ type, }) => '[' + type + ']',
+  NonNullType: ({ type, }) => type + '!',
 
   // Type System Definitions
 
-  SchemaDefinition: ({ directives, operationTypes }) =>
+  SchemaDefinition: ({ directives, operationTypes, }) =>
     join([
       'schema',
       join(directives, ' '),
       block(operationTypes),
     ], ' '),
 
-  OperationTypeDefinition: ({ operation, type }) =>
+  OperationTypeDefinition: ({ operation, type, }) =>
     operation + ': ' + type,
 
-  ScalarTypeDefinition: ({ name, directives }) =>
-    join([ 'scalar', name, join(directives, ' ') ], ' '),
+  ScalarTypeDefinition: ({ name, directives, }) =>
+    join([ 'scalar', name, join(directives, ' '), ], ' '),
 
-  ObjectTypeDefinition: ({ name, interfaces, directives, fields }) =>
+  ObjectTypeDefinition: ({ name, interfaces, directives, fields, }) =>
     join([
       'type',
       name,
       wrap('implements ', join(interfaces, ', ')),
       join(directives, ' '),
-      block(fields)
+      block(fields),
     ], ' '),
 
-  FieldDefinition: ({ name, arguments: args, type, directives }) =>
+  FieldDefinition: ({ name, arguments: args, type, directives, }) =>
     name +
     wrap('(', join(args, ', '), ')') +
     ': ' + type +
     wrap(' ', join(directives, ' ')),
 
-  InputValueDefinition: ({ name, type, defaultValue, directives }) =>
+  InputValueDefinition: ({ name, type, defaultValue, directives, }) =>
     join([
       name + ': ' + type,
       wrap('= ', defaultValue),
-      join(directives, ' ')
+      join(directives, ' '),
     ], ' '),
 
-  InterfaceTypeDefinition: ({ name, directives, fields }) =>
+  InterfaceTypeDefinition: ({ name, directives, fields, }) =>
     join([
       'interface',
       name,
       join(directives, ' '),
-      block(fields)
+      block(fields),
     ], ' '),
 
-  UnionTypeDefinition: ({ name, directives, types }) =>
+  UnionTypeDefinition: ({ name, directives, types, }) =>
     join([
       'union',
       name,
       join(directives, ' '),
-      '= ' + join(types, ' | ')
+      '= ' + join(types, ' | '),
     ], ' '),
 
-  EnumTypeDefinition: ({ name, directives, values }) =>
+  EnumTypeDefinition: ({ name, directives, values, }) =>
     join([
       'enum',
       name,
       join(directives, ' '),
-      block(values)
+      block(values),
     ], ' '),
 
-  EnumValueDefinition: ({ name, directives }) =>
-    join([ name, join(directives, ' ') ], ' '),
+  EnumValueDefinition: ({ name, directives, }) =>
+    join([ name, join(directives, ' '), ], ' '),
 
-  InputObjectTypeDefinition: ({ name, directives, fields }) =>
+  InputObjectTypeDefinition: ({ name, directives, fields, }) =>
     join([
       'input',
       name,
       join(directives, ' '),
-      block(fields)
+      block(fields),
     ], ' '),
 
-  TypeExtensionDefinition: ({ definition }) => `extend ${definition}`,
+  TypeExtensionDefinition: ({ definition, }) => `extend ${definition}`,
 
-  DirectiveDefinition: ({ name, arguments: args, locations }) =>
+  DirectiveDefinition: ({ name, arguments: args, locations, }) =>
     'directive @' + name + wrap('(', join(args, ', '), ')') +
     ' on ' + join(locations, ' | '),
-};
+}
 
 
 Object
     .keys(printDocASTReducer)
     .filter(key => key !== 'Name')
     .forEach(key => {
-        const fn = printDocASTReducer[key];
-        printDocASTReducer[key] = withDescription(fn);
-    });
+      const fn = printDocASTReducer[key]
+      printDocASTReducer[key] = withDescription(fn)
+    })
 
 
 function withDescription(fn) {
-    return function (node) {
-        const desc = getDescription(node);
-        const descText = desc ? desc.replace(/^/gm, '# ') + '\n' : '';
-        return descText + fn(node);
-    }
+  return function (node) {
+    const desc = getDescription(node)
+    const descText = desc ? desc.replace(/^/gm, '# ') + '\n' : ''
+    return descText + fn(node)
+  }
 }
 
 /**
@@ -242,7 +241,7 @@ function withDescription(fn) {
  * print all items together separated by separator if provided
  */
 function join(maybeArray, separator) {
-  return maybeArray ? maybeArray.filter(x => x).join(separator || '') : '';
+  return maybeArray ? maybeArray.filter(x => x).join(separator || '') : ''
 }
 
 /**
@@ -252,7 +251,7 @@ function join(maybeArray, separator) {
 function block(array) {
   return array && array.length !== 0 ?
     indent('{\n' + join(array, '\n')) + '\n}' :
-    '{}';
+    '{}'
 }
 
 /**
@@ -262,11 +261,11 @@ function block(array) {
 function wrap(start, maybeString, end) {
   return maybeString ?
     start + maybeString + (end || '') :
-    '';
+    ''
 }
 
 function indent(maybeString) {
-  return maybeString && maybeString.replace(/\n/g, '\n  ');
+  return maybeString && maybeString.replace(/\n/g, '\n  ')
 }
 
 /**
@@ -288,7 +287,7 @@ export async function cli(program=commander) {
   } else {
     const command = program.command('format <glob ...>')
     cliAddHelp(cliAddBasics(command))
-    command.action(async (inputGlob, options) => {
+    command.action(async (inputGlob) => {
       await cliAction(command, inputGlob.split(' '))
     })
   }
@@ -303,6 +302,7 @@ function cliAddHelp(command) {
     !module.parent
       ? 'gql-format'
       : 'gql format'
+  // eslint-disable-next-line no-console
   return command.on('--help', () => console.log(`  Examples:
 
     $ ${commandName} **/*.graphql

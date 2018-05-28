@@ -1,5 +1,5 @@
 import test from 'ava'
-import { formatString } from '../dist'
+import { formatString, } from '../dist'
 
 test('formatString should remove comments if present', t => {
   const input = `type Foo {

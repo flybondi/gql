@@ -1,5 +1,5 @@
 import test from 'ava'
-import {formatString} from 'gql-format'
+import {formatString,} from 'gql-format'
 import {
   mergeString,
   mergeStrings,
@@ -42,7 +42,7 @@ test('mergeStrings', async t => {
   const schema3 = `type Query {
   hello(input: String): String
 }`
-  const result = await mergeStrings([schema1, schema2, schema3])
+  const result = await mergeStrings([schema1, schema2, schema3,])
   const expected = formatString(`type Foo {
   bar: String
   baz: String
@@ -70,7 +70,7 @@ type ThingWithDesc {
   foo: Int
 }`
 
-  const result = await mergeStrings([schema1, schema2])
+  const result = await mergeStrings([schema1, schema2,])
   const expected = formatString(`
 # This should have a comment description
 type ThingWithDesc {
@@ -98,7 +98,7 @@ enum Thing {
   Thing2
 }`
 
-  const result = await mergeStrings([schema1, schema2])
+  const result = await mergeStrings([schema1, schema2,])
   const expected = formatString(`
 # This should have a comment description
 enum Thing {
@@ -122,7 +122,7 @@ union Thing
 union Thing
     = Thing2`
 
-  const result = await mergeStrings([schema1, schema2])
+  const result = await mergeStrings([schema1, schema2,])
   const expected = formatString(`
 # This should have a comment description
 union Thing = Thing1 | Thing2`)

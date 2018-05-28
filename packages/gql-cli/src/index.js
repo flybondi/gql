@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 /* @flow */
 import program from 'commander'
-import {cli as formatCli} from 'gql-format'
-import {cli as mergeCli} from 'gql-merge'
+import {cli as formatCli,} from 'gql-format'
+import {cli as mergeCli,} from 'gql-merge'
 import {version, description,} from '../package.json'
 
 program

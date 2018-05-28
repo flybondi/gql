@@ -2,7 +2,7 @@
 /* @flow */
 import commander from 'commander'
 import {parse,visit,} from 'graphql/language'
-import {formatString, formatAst} from 'gql-format'
+import {formatString, formatAst,} from 'gql-format'
 import {readFileGlob, readFilePaths, writeFileObject,} from 'gql-utils'
 import {version, description,} from '../package.json'
 
@@ -62,7 +62,7 @@ export function mergeString(schemaStr: string): string {
  * @return {string} The resulting merged GraphQL string.
  */
 export function mergeAst(schemaAst: Document): string {
-  const typeDefs = {};
+  const typeDefs = {}
 
   // Go through the AST and extract/merge type definitions.
   const editedAst: Document = visit(schemaAst, {
@@ -83,7 +83,7 @@ export function mergeAst(schemaAst: Document): string {
       }
 
       // This type is defined multiple times, so merge the fields and values.
-      const concatProps = ['fields', 'values', 'types']
+      const concatProps = ['fields', 'values', 'types',]
       concatProps.forEach(propName => {
         if (node[propName] && oldNode[propName]) {
           node[propName] = oldNode[propName].concat(node[propName])
@@ -92,7 +92,7 @@ export function mergeAst(schemaAst: Document): string {
 
       typeDefs[nodeName] = node
       return null
-    }
+    },
   })
 
   const remainingNodesStr = formatAst(editedAst)
@@ -132,6 +132,7 @@ function cliAddHelp(command) {
     !module.parent
       ? 'gql-merge'
       : 'gql merge'
+  // eslint-disable-next-line no-console
   return command.on('--help', () => console.log(`  Examples:
     $ ${commandName} **/*.graphql > schema.graphql
     $ ${commandName} -o schema.graphql **/*.graphql
@@ -139,7 +140,7 @@ function cliAddHelp(command) {
   `))
 }
 
-export async function cliAction(program, fileGlobs=[], {outFile}) {
+export async function cliAction(program, fileGlobs=[], {outFile,}) {
   if (!fileGlobs.length) {
     return program.help()
   }
@@ -154,6 +155,7 @@ export async function cliAction(program, fileGlobs=[], {outFile}) {
       fileContents: schemaStr,
     })
   } else {
+    // eslint-disable-next-line no-console
     console.log(schemaStr)
   }
 }
