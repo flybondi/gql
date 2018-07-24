@@ -1,5 +1,6 @@
 # gql
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/1cf0d23965064357a66ec74737167065)](https://app.codacy.com/app/Flybondi/gql?utm_source=github.com&utm_medium=referral&utm_content=flybondi/gql&utm_campaign=badger)
 [![standard-readme compliant](https://img.shields.io/badge/standard--readme-OK-green.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
 [![Travis](https://img.shields.io/travis/liamcurry/gql.svg?style=flat-square)]()
 
